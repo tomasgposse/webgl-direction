@@ -1,6 +1,6 @@
 # La vara
 
-Referencia: la revista 3D de paper.design/mono (capturas en `reference/`). Se mide contra ella, no se copia: ni su contenido, ni su esfera de vidrio, ni su grilla tipográfica.
+Referencia: la revista 3D de paper.design/mono (las capturas no se incluyen: son contenido de Paper). Se mide contra ella, no se copia: ni su contenido, ni su esfera de vidrio, ni su grilla tipográfica.
 
 | Elemento | Qué tiene la referencia | Estado con nombre |
 |---|---|---|
