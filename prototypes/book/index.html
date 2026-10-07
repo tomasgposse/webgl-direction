@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>.works · libro</title>
+<style>
+  /* Boska y Switzer son de Fontshare y no se redistribuyen: poné los .woff2 en assets/ para verlo como en el sitio. */
+  @font-face { font-family: Boska; src: url(assets/Boska-Regular.woff2) format("woff2"); font-display: swap; }
+  @font-face { font-family: Switzer; src: url(assets/Switzer-Regular.woff2) format("woff2"); font-display: swap; }
+  :root { --paper: #ffffff; --ink: #0d0d0d; --graphite: #5f5f5f; --rule: #e4e4e2; --gutter: clamp(1.25rem, 2.6vw, 2.5rem); }
+  :root[data-theme="dark"] { --paper: #0d0d0d; --ink: #f0efeb; --graphite: #a3a3a3; --rule: #262626; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--paper); color: var(--ink); font: 15px/1.5 Switzer, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  header { display: flex; justify-content: space-between; padding: 16px var(--gutter); font-size: 13px; }
+  header button { font: inherit; color: inherit; background: none; border: 1px solid var(--rule); border-radius: 99px; padding: 4px 12px; cursor: pointer; }
+  .hero { min-height: calc(100svh - 52px); display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: var(--gutter); padding: 0 var(--gutter) 40px; }
+  h1 { font: 400 clamp(4rem, 11vw, 13rem)/0.88 Boska, serif; letter-spacing: -0.03em; margin: 0; }
+  .role { margin-top: 2rem; font: 400 clamp(1.6rem, 2.6vw, 2.6rem)/1.08 Boska, serif; }
+  .stage { position: relative; height: min(78svh, 820px); }
+  .stage:focus-visible { outline: 2px solid var(--ink); outline-offset: 6px; border-radius: 4px; }
+  .fallback { position: absolute; inset: 0; display: grid; place-items: center; color: var(--graphite); }
+  .hint { position: absolute; left: 0; right: 0; bottom: 0; text-align: center; font-size: 13px; color: var(--graphite); }
+  .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 99px; font-size: 14px; opacity: 0; transition: opacity .25s; pointer-events: none; }
+  @media (max-width: 860px) { .hero { grid-template-columns: 1fr; } .stage { height: 62svh; } }
+</style>
+</head>
+<body>
+<header><span>Tomi Granillo Posse</span><button id="theme" type="button">Tema</button></header>
+<main class="hero">
+  <div>
+    <h1>Hola,<br>soy Tomi</h1>
+    <p class="role">Product designer.</p>
+  </div>
+  <div class="stage" id="stage" tabindex="0" role="group" aria-label="Cuadernillo con mis trabajos: Cerquita, Bond e inmentalinteractive.com. Flechas para pasar páginas, Enter para abrir el caso.">
+    <p class="hint" id="hint">Arrastrá o tocá el libro</p>
+  </div>
+</main>
+<div class="toast" id="toast"></div>
+
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js" } }</script>
+<script type="module">
+import { createBook, canUseWebGL } from "./book.js";
+
+const data = {
+  author: "Tomi Granillo Posse",
+  title: ".works",
+  edition: "Buenos Aires",
+  colophon: "Tomi Granillo Posse · Buenos Aires",
+  character: "assets/tomi.png",
+  labels: { open: "Abrir", read: "Ver caso ↗", back: "Volver a la tapa" },
+  cases: [
+    { slug: "cerquita", title: "Cerquita", kind: "App propia · Diseño y desarrollo", image: "assets/cerquita.jpg",
+      lead: "Una web app para parejas a distancia que organiza todo alrededor del próximo encuentro. Salió de un problema propio, y la diseñé y construí yo.",
+      caption: "El plan del encuentro, del finde al vuelo." },
+    { slug: "bond", title: "Bond", kind: "Producto · Propuesta de valor, identidad y sistema", image: "assets/bond.jpg",
+      lead: "PomJuice es una plataforma de 2024 para que las startups se presenten a inversores. La rediseñé con una sola propuesta de valor, una identidad nueva y un sistema de diseño.",
+      caption: "Founders e inversores usando el asistente. Datos de ejemplo." },
+    { slug: "inmental-web", title: "inmentalinteractive.com", kind: "Web · Diseño y desarrollo", image: "assets/inmental.webp",
+      lead: "La web de Inmental Interactive, la agencia donde trabajo. La planifiqué, la diseñé y la construí con IA en una semana.",
+      caption: "El titular sobre tres videos de activaciones." },
+  ],
+  closing: { title: "Hablemos.", body: "Disponible para trabajar como product designer, de forma remota.", contact: "LinkedIn · Behance — holasoytomi" },
+};
+
+// El tema arranca como el del sistema, igual que en el sitio.
+if (matchMedia("(prefers-color-scheme: dark)").matches) document.documentElement.dataset.theme = "dark";
+const stage = document.getElementById("stage");
+const toast = document.getElementById("toast");
+const params = new URLSearchParams(location.search);
+const debug = params.has("debug") || params.has("state");
+
+if (!canUseWebGL()) {
+  stage.insertAdjacentHTML("beforeend", '<div class="fallback">Lista de trabajos (sin WebGL)</div>');
+} else {
+  const book = await createBook(stage, {
+    data, debug,
+    fonts: { display: "Boska, Georgia, serif", text: "Switzer, Helvetica, Arial, sans-serif" },
+    theme: document.documentElement.dataset.theme || "light",
+    onOpen: (slug) => {
+      toast.textContent = `Abriría /trabajo/${slug}`;
+      toast.style.opacity = "1";
+      setTimeout(() => (toast.style.opacity = "0"), 1600);
+    },
+    onChange: (i) => (document.getElementById("hint").textContent = i === 0 ? "Arrastrá o tocá el libro" : i > data.cases.length ? "Fin" : `${String(i).padStart(2, "0")} — ${data.cases[i - 1].title}`),
+  });
+  if (params.get("state")) book.goto(params.get("state"));
+  document.getElementById("theme").onclick = () => {
+    const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    document.documentElement.dataset.theme = next;
+    book.setTheme(next);
+  };
+}
+</script>
+</body>
+</html>
