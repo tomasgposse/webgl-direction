@@ -1,9 +1,9 @@
 ---
-name: webgl-direction
+name: depthfirst
 description: Art-directs and builds an interactive WebGL experience for a website, grounded in that specific project. Reads the whole project (product, audience, brand, design system, copy, assets), proposes three concepts tied to it, each with placement, interaction, look and cost, lets the person choose, then builds the chosen one with Three.js or React Three Fiber, with performance budgets, a reduced-motion version, a no-WebGL fallback and mobile support, and verifies it in a real browser. Use when someone wants 3D, WebGL, shaders or an interactive hero for their site, asks what 3D experience would suit their project, or wants their site to feel less static. For Three.js API details it pairs well with API-focused Three.js skills.
 ---
 
-# webgl-direction
+# depthfirst
 
 Most WebGL on the web is a generic object that could sit on any site: floating particles, a glossy blob, a spinning globe. This skill does the opposite. The 3D comes **from the project itself**: its subject, its brand, its story, the way its users behave. Then it gets built so it runs well for everyone, including people on cheap phones and people who turn motion off.
 
@@ -25,7 +25,7 @@ Talk to the person in their language. Write code comments in the project's exist
 node <skill>/scripts/survey.mjs <project>
 ```
 
-`<skill>` is the folder this file lives in. The script prints a summary and writes `<project>/.webgl-direction/survey.json` (add `.webgl-direction/` to the project's `.gitignore` if it isn't there): framework, router, whether Three.js or R3F is installed, color tokens, fonts, motion libraries, candidate brand assets (logos, characters, illustrations), product and design docs, and the page copy it can find.
+`<skill>` is the folder this file lives in. The script prints a summary and writes `<project>/.depthfirst/survey.json` (add `.depthfirst/` to the project's `.gitignore` if it isn't there): framework, router, whether Three.js or R3F is installed, color tokens, fonts, motion libraries, candidate brand assets (logos, characters, illustrations), product and design docs, and the page copy it can find.
 
 ### 2. Read
 
@@ -87,7 +87,7 @@ node <skill>/scripts/capture-states.mjs "<url>?debug" --out workbench/round-N [-
 Then test the interaction with real input events, and run the final check:
 
 ```bash
-node <skill>/scripts/check.mjs <url> [--selector <css>] [--color-scheme light|dark] [--out <project>/.webgl-direction/check]
+node <skill>/scripts/check.mjs <url> [--selector <css>] [--color-scheme light|dark] [--out <project>/.depthfirst/check]
 ```
 
 It opens the page in a real headless Chrome or Edge, on desktop and on a phone-sized viewport, and reports: whether a WebGL canvas rendered, console errors, frames per second over a few seconds, what the page shows with reduced motion, and screenshots of each case. Look at the screenshots. Fix anything that fails and run it again.

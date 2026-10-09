@@ -1,8 +1,10 @@
-# webgl-direction
+# depthfirst
 
 **English** · [Español](#español)
 
-Most WebGL on the web is a generic object that could sit on any site: floating particles, a glossy blob, a spinning globe. `webgl-direction` is an agent skill that does the opposite. It reads your project, proposes three 3D concepts that come **from that project** (its subject, its brand, its story), lets you choose, builds the one you pick and keeps improving it against a reference you love until it holds up.
+Most WebGL on the web is a generic object that could sit on any site: floating particles, a glossy blob, a spinning globe. `depthfirst` is an agent skill that does the opposite. It reads your project, proposes three 3D concepts that come **from that project** (its subject, its brand, its story), lets you choose, builds the one you pick and keeps improving it against a reference you love until it holds up.
+
+*Depth first: it reads the project first, then adds the depth.*
 
 ![A printed booklet in 3D in a portfolio hero, open on a case study](docs/book-spread.png)
 
@@ -34,10 +36,10 @@ To run it: serve `prototypes/book` with any static server and open it. Boska and
 ## Install
 
 ```bash
-npx skills add tomasgposse/webgl-direction
+npx skills add tomasgposse/depthfirst
 ```
 
-Or clone it into your skills folder (for Claude Code, `~/.claude/skills/webgl-direction`). Then ask your agent something like: *"Use webgl-direction to propose an interactive 3D experience for this site."*
+Or clone it into your skills folder (for Claude Code, `~/.claude/skills/depthfirst`). Then ask your agent something like: *"Use depthfirst to propose an interactive 3D experience for this site."*
 
 Requires Node 22+ and Chrome or Edge for the scripts. Tested on Windows.
 
@@ -45,7 +47,9 @@ Requires Node 22+ and Chrome or Edge for the scripts. Tested on Windows.
 
 ## Español
 
-La mayoría del WebGL en la web es un objeto genérico que podría estar en cualquier sitio: partículas flotando, una gota brillante, un globo que gira. `webgl-direction` es una skill para agentes que hace lo contrario. Lee tu proyecto, propone tres conceptos 3D que salen **de ese proyecto** (su tema, su marca, su historia), te deja elegir, construye el elegido y lo mejora contra una referencia que te guste hasta que esté a la altura.
+La mayoría del WebGL en la web es un objeto genérico que podría estar en cualquier sitio: partículas flotando, una gota brillante, un globo que gira. `depthfirst` es una skill para agentes que hace lo contrario. Lee tu proyecto, propone tres conceptos 3D que salen **de ese proyecto** (su tema, su marca, su historia), te deja elegir, construye el elegido y lo mejora contra una referencia que te guste hasta que esté a la altura.
+
+*Depth first: primero lee el proyecto y después le agrega profundidad.*
 
 ### Qué hace
 
@@ -69,7 +73,7 @@ La mayoría del WebGL en la web es un objeto genérico que podría estar en cual
 ### Instalación
 
 ```bash
-npx skills add tomasgposse/webgl-direction
+npx skills add tomasgposse/depthfirst
 ```
 
 ## License · Licencia

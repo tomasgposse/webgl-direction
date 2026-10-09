@@ -14,7 +14,7 @@ if (!url) {
   process.exit(1);
 }
 const opt = (k, d) => (args.includes(k) ? args[args.indexOf(k) + 1] : d);
-const outDir = path.resolve(opt('--out', '.webgl-direction/check'));
+const outDir = path.resolve(opt('--out', '.depthfirst/check'));
 const selector = opt('--selector', 'canvas');
 const seconds = Number(opt('--seconds', 4));
 const scheme = opt('--color-scheme', null);

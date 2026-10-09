@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 // Relevamiento de un proyecto web antes de proponer una experiencia WebGL.
 // Uso: node survey.mjs <ruta-del-proyecto>
-// Escribe <proyecto>/.webgl-direction/survey.json e imprime un resumen. Sin dependencias.
+// Escribe <proyecto>/.depthfirst/survey.json e imprime un resumen. Sin dependencias.
 
 import fs from 'node:fs';
 import path from 'node:path';
 
 const root = path.resolve(process.argv[2] || '.');
-const SKIP = new Set(['node_modules', '.git', '.next', 'dist', 'build', 'out', '.vercel', '.turbo', 'coverage', '.webgl-direction', '.svelte-kit', '.nuxt', '.astro']);
+const SKIP = new Set(['node_modules', '.git', '.next', 'dist', 'build', 'out', '.vercel', '.turbo', 'coverage', '.depthfirst', '.svelte-kit', '.nuxt', '.astro']);
 
 function walk(dir, depth = 0, out = []) {
   if (depth > 6 || !fs.existsSync(dir)) return out;
@@ -125,7 +125,7 @@ const survey = {
   reducedMotionHandled: files.some((f) => /prefers-reduced-motion|useReducedMotion/.test(read(f))),
 };
 
-const outDir = path.join(root, '.webgl-direction');
+const outDir = path.join(root, '.depthfirst');
 fs.mkdirSync(outDir, { recursive: true });
 fs.writeFileSync(path.join(outDir, 'survey.json'), JSON.stringify(survey, null, 2));
 

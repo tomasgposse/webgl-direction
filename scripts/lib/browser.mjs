@@ -23,7 +23,7 @@ let nextPort = 9411;
 
 export async function open({ flags = [] } = {}) {
   const port = nextPort++;
-  const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'webgl-direction-'));
+  const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'depthfirst-'));
   // Sin --disable-gpu: queremos WebGL real (por GPU o por SwiftShader).
   const proc = spawn(browserPath, ['--headless=new', '--hide-scrollbars', '--no-first-run', '--enable-unsafe-swiftshader',
     `--remote-debugging-port=${port}`, `--user-data-dir=${profile}`, ...flags, 'about:blank'], { stdio: 'ignore' });
